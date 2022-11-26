@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 #!bin/bash
-echo "	# Architecture	:	$(uname -a)
+wall "	# Architecture	:	$(uname -a)
 	# CPU physical	:	$(nproc)
 	# vCPU			:	$(cat /proc/cpuinfo | grep processor | wc -l)
 	# Memory Usage	:	$(free -m | awk '$1 == "Mem:" {print $3"/"$2 "MB"}') $(free | awk '$1 == "Mem:" {printf("(%.1f"), $3/$2*100}') %)
