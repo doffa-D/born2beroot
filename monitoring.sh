@@ -11,15 +11,15 @@
 # **************************************************************************** #
 
 #!bin/bash
-wall "	# Architecture	:	$(uname -a)
-	# CPU physical	:	$(nproc)
-	# vCPU			:	$(cat /proc/cpuinfo | grep processor | wc -l)
-	# Memory Usage	:	$(free -m | awk '$1 == "Mem:" {print $3"/"$2 "MB"}') $(free | awk '$1 == "Mem:" {printf("(%.1f"), $3/$2*100}') %)
-	# Disk Usage		:	$(df -Bg | grep "/dev/" | grep -v "/boot" | awk '{ud += $3} {fd += $2} END {print ud"/"fd "GB (" ud/fd*100 " %)"}')
-	# CPU load		:	$(top -bn1 | grep '^%Cpu' | awk '{printf("%.1f%%"), $2}')
-	# Last boot		:	$(who -b | awk '{print $3,$4}')
-	# LVM use			:	$(lsblk | grep "lvm" | awk '{if ($1) {print "yes";exit} else {print "no"}}')
-	# Connections TCP	:	$(cat /proc/net/sockstat{,6}| grep "TCP:" | awk '{printf $3" ESTABLISHED"}')
-	# User Log		:	$(users | wc -w)
-	# Network			:	IP $(hostname -I | awk '{print $1}') $(ip link | grep "link/ether" | awk '{print "("$2")"}')
-	# Sudo			:	$(journalctl _COMM=sudo | grep COMMAND | wc -l) cmd"
+wall "	# Architecture	: $(uname -a)
+	# CPU physical	: $(lscpu | grep Socket | awk '{print $2}')
+	# vCPU		: $(cat /proc/cpuinfo | grep processor | wc -l)
+	# Memory Usage	: $(free -m | awk '$1 == "Mem:" {print $3"/"$2 "MB"}') $(free | awk '$1 == "Mem:" {printf("(%.1f"), $3/$2*100}') %)
+	# Disk Usage	: $(df -Bg | grep "/dev/" | grep -v "/boot" | awk '{ud += $3} {fd += $2} END {print ud"/"fd "GB (" ud/fd*100 " %)"}')
+	# CPU load	: $(top -bn1 | grep '^%Cpu' | awk '{printf("%.1f%%"), $2+$3}')
+	# Last boot	: $(who -b | awk '{print $3,$4}')
+	# LVM use	: $(lsblk | grep "lvm" | awk '{if ($1) {print "yes";exit} else {print "no"}}')
+	# Connections TCP: $(ss --tcp | egrep ESTAB | wc -l)
+	# User Log	: $(users | wc -w)
+	# Network	: IP $(hostname -I | awk '{print $1}') $(ip link | grep "link/ether" | awk '{print "("$2")"}')
+	# Sudo		: $(journalctl _COMM=sudo | grep COMMAND | wc -l) cmd"
